@@ -62,7 +62,7 @@ EXTREME_CODES = {
     14: "Radiation", 15: "Hochwasser",
 }
 WIND_DIR = {0: "N", 1: "NO", 2: "O", 3: "SO", 4: "S", 5: "SW", 6: "W", 7: "NW"}
-WIND_FORCE = {0: "?", 1: "0-2", 2: "3-4", 3: "5-6", 4: "7", 5: "8", 6: "9", 7: ">9"}
+WIND_FORCE = {0: "?", 1: "0-2", 2: "<=28 / 3-4", 3: "5-6", 4: "7", 5: "8", 6: "9", 7: ">9"}
 
 REGIONS_0_59 = {
     0: "Bordeaux", 1: "La Rochelle", 2: "Paris", 3: "Brest", 4: "Clermont-Ferrand",
@@ -81,13 +81,13 @@ REGIONS_0_59 = {
 }
 
 SECTION_INFO = {
-    0: ("Heute", "Hoch", "Cond. estreme/Pioggia"),
-    1: ("Heute", "Tief", "Wind"),
-    2: ("Tag 1", "Hoch", "Cond. estreme/Pioggia"),
-    3: ("Tag 1", "Tief", "Wind"),
-    4: ("Tag 2", "Hoch", "Cond. estreme/Pioggia"),
-    5: ("Tag 2", "Tief", "Wind"),
-    6: ("Tag 3", "Hoch", "Cond. estreme/Pioggia"),
+    0: ("Oggi", "Giorno", "Cond. estreme/Pioggia"),
+    1: ("Oggi", "Notte", "Vento"),
+    2: ("Domani", "Giorno", "Cond. estreme/Pioggia"),
+    3: ("Domani", "Notte", "Vento"),
+    4: ("Dopodomani", "Giorno", "Cond. estreme/Pioggia"),
+    5: ("Dopodomani", "Notte", "Vento"),
+    6: ("Dopo-dopodomani", "Giorno", "Cond. estreme/Pioggia"),
     7: ("Tag 3", "Wind/Anomalie", "Wind"),
 }
 
@@ -491,7 +491,7 @@ def print_decoded(decoded, region=-1, temp=-1, show_internal=False):
         ts = f'{r.dd:02d}.{r.mo:02d}.{r.yy:02d} {r.hh:02d}:{r.mm:02d}:{r.ss:02d}'
         print(f'{ts} -> {mapped["payload_hex"]}')
         print(f'  Regione:  {mapped["region_id"]} - {mapped["region_name"]}')
-        print(f'  Sezione:  {mapped["section_id"]} - {mapped["day_label"]} / {mapped["section_kind"]}')
+        print(f'  Sezione:  {mapped["section_id"]} - {mapped["day_label"]} ({r.dd + mapped["section_id"] // 2:02d}) / {mapped["section_kind"]}')
         print(f'  Giorno:   {mapped["day_weather"]} (Code {mapped["day_code"]})')
         print(f'  Notte:    {mapped["night_weather"]} (Code {mapped["night_code"]})')
         print(f'  Temp:     {mapped["temp_text"]} (Code {mapped["temp_code"]})')
